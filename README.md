@@ -7,3 +7,6 @@ Python project starter template made with uv and other goodies.
 3. Activate the virtual environment with `source .venv/bin/activate`.
 4. Build the library with `uv build`.
 5. Profit!
+
+> [!TIP]
+> To test your project don't forget to call `uv sync --all-extras` to include development dependencies, such as `pytest`. Then, run the `pytest` command. The configuration in (`pytest.ini`)[pytest.ini] should take care of everything.
