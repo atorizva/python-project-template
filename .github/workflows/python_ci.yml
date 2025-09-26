@@ -1,0 +1,26 @@
+name: Python package CI/CD
+
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'  # Semantic versioning
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Install project
+        run: uv sync --locked --all-extras --dev
+      - name: Run tests
+        run: uv run pytest
+      
+  
