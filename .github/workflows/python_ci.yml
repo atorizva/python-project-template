@@ -19,6 +19,8 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6
+        with:
+            enable-cache: ${{ !env.ACT }}  # If not locally run, enable cache
 
       - name: Sync Project
         run: uv sync --locked --all-extras --dev
@@ -54,6 +56,8 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6
+        with:
+            enable-cache: ${{ !env.ACT }}  # If not locally run, enable cache
 
       - name: Build Project
         run: uv build
