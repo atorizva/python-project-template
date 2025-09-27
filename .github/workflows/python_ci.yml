@@ -16,19 +16,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
       - name: Install uv
         uses: astral-sh/setup-uv@v6
-      - name: Install project
+
+      - name: Sync Project
         run: uv sync --locked --all-extras --dev
-      - name: Run tests
+
+      - name: Run Tests
         run: uv run pytest
-      - name: Upload pytest test results
+
+      - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
           name: pytest-results
           path: |
             test_report.xml
             coverage.xml
-
-      
-  
+      - name: Test report
+        uses: dorny/test-reporter@v2
+        if: ${{ !cancelled() }}  
+        with:
+          name: Pytest Tests      
+          path: test_report.xml
+          reporter: java-junit
